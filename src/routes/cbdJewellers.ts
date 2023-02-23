@@ -1,7 +1,10 @@
 import puppeteer from "puppeteer";
+import express, { Request, Response } from "express";
 import { scrollPageToBottom } from "puppeteer-autoscroll-down";
 
-async function scrapeCBDJewellers() {
+const router = express.Router();
+
+router.get("/", async (req: Request, res: Response) => {
   try {
     // Create browser
     const browser = await puppeteer.launch({});
@@ -119,8 +122,8 @@ async function scrapeCBDJewellers() {
         }
       }
 
-      // Log the results
-      console.log(watchesDetails);
+      // Send the data with response
+      res.status(200).json(watchesDetails);
 
       // Close the browser
       await browser.close();
@@ -130,6 +133,6 @@ async function scrapeCBDJewellers() {
   } catch (err) {
     throw err;
   }
-}
+});
 
-export default scrapeCBDJewellers;
+export default router;
