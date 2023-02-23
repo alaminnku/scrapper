@@ -43,15 +43,31 @@ async function scrapeCBDJewellers() {
             for (let i = 0; i < urls.length; i++) {
               try {
                 // Go to watch page
-                await page.goto(urls[i]);
+                await page.goto(urls[0]);
 
                 try {
                   // Scrape the details
                   const watchDetails = await page.evaluate(() => {
-                    // Get the title
-                    const title = document.querySelector(
+                    // Get the name
+                    const name = document.querySelector(
                       "#shopify-section-product-template > div > div.container.container-fluid-mobile > div > div div > h1"
                     )?.textContent;
+
+                    // Get the price
+                    const price = document.querySelector(
+                      "#shopify-section-product-template > div > div.container.container-fluid-mobile > div > div > div > div.tt-price > span.new-price > span"
+                    )?.textContent;
+
+                    // Get images
+                    const imageNodes = document.querySelectorAll(
+                      "#smallGallery > div > div > li.slick-slide a"
+                    );
+
+                    // Convert and format image DOM nodes to array
+                    const images = Array.from(imageNodes).map(
+                      (imageNode) =>
+                        `http:${imageNode.getAttribute("data-image")}`
+                    );
 
                     // Get the description
                     const descriptionNodes = document.querySelectorAll(
@@ -72,7 +88,7 @@ async function scrapeCBDJewellers() {
                       }, {});
 
                     // Return watch details object
-                    return { name: title, ...descriptionObject };
+                    return { name, ...descriptionObject, price, images };
                   });
 
                   // Add the watch details object to watches details array
