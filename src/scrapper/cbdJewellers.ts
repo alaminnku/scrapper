@@ -4,7 +4,7 @@ import { scrollPageToBottom } from "puppeteer-autoscroll-down";
 async function scrapeCBDJewellers() {
   try {
     // Create browser
-    const browser = await puppeteer.launch({});
+    const browser = await puppeteer.launch();
 
     try {
       // Create page

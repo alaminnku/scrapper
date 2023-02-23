@@ -1,6 +1,6 @@
 import express from "express";
-import scrapeCBDJewellers from "./scrapper/cbdJewellers";
 import CBDJewellers from "./routes/cbdJewellers";
+import scrapeCBDJewellers from "./scrapper/cbdJewellers";
 
 // Create port
 const PORT = process.env.PORT || 5300;

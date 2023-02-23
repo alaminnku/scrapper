@@ -2,15 +2,16 @@ import puppeteer from "puppeteer";
 import express, { Request, Response } from "express";
 import { scrollPageToBottom } from "puppeteer-autoscroll-down";
 
+// Initiate router
 const router = express.Router();
 
 router.get("/", async (req: Request, res: Response) => {
   try {
-    // Create browser
-    const browser = await puppeteer.launch({});
+    // Launch browser
+    const browser = await puppeteer.launch();
 
     try {
-      // Create page
+      // Create new page
       const page = await browser.newPage();
 
       // Target URLs
